@@ -1,0 +1,64 @@
+type Query {
+  items(filter: ItemFilterInput, limit: Int, skip: Int): ItemsResult
+  itemsByUser(limit: Int, skip: Int): ItemsResult
+}
+
+type Mutation {
+  createItem(input: CreateItemInput!): Item!
+  publishItem(input: PublishItemInput!): Item!
+  bidItem(input: BidItemInput!): Item!
+}
+
+# ============= INPUT =============== #
+input ItemFilterInput {
+  bidStatus: BidStatus
+}
+
+input CreateItemInput {
+  name: String!
+  startedPrice: Float!
+  duration: Int!
+}
+
+input PublishItemInput {
+  id: ID!
+}
+
+input BidItemInput {
+  id: ID!
+  price: Float!
+}
+
+# ============= ENUM =============== #
+enum ItemState {
+  DRAFT
+  PUBLISH
+}
+
+enum BidStatus {
+  ONGOING
+  COMPLETED
+}
+
+# ============= TYPE =============== #
+type Item {
+  id: ID!
+  name: String!
+  startedPrice: Float!
+  currentPrice: Float!
+  duration: Int!
+  state: ItemState!
+  bidStatus: BidStatus!
+  expiredDate: DateTime
+  createdBy: User!
+  bidBy: User
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type ItemsResult {
+  result: [Item]
+  totalCount: Int
+}
+
+scalar DateTime

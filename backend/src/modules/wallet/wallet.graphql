@@ -1,0 +1,11 @@
+type Mutation {
+  deposit(input: DepositInput!): DepositResponse!
+}
+
+type DepositResponse {
+  balance: Float!
+}
+
+input DepositInput {
+  balance: Float!
+}

@@ -1,0 +1,29 @@
+type Query {
+  userByToken(token: ID!): User
+}
+
+type Mutation {
+  logIn(input: LoginInput!): LoginResponse!
+  signUp(input: SignUpInput!): Boolean!
+}
+
+# ============= TYPE =============== #
+type LoginResponse {
+  id: ID!
+  email: String!
+  nickname: String
+  accessToken: String!
+  balance: Float!
+}
+
+# ============= INPUT =============== #
+input SignUpInput {
+  email: String!
+  password: String!
+  nickname: String
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
